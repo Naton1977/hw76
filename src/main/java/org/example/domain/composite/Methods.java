@@ -8,6 +8,7 @@ import org.example.domain.entity.Actor;
 import org.example.domain.entity.Director;
 import org.example.domain.entity.Genre;
 import org.example.domain.entity.Movie;
+import org.hibernate.Hibernate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -296,8 +297,11 @@ public class Methods {
     }
 
     public void addActorsToMovies() {
-        List<Movie> movies = movieDao.findAll();
         List<Actor> actors = actorDao.findAll();
+        List<Movie> movies = movieDao.findAll();
+        for (Movie movie : movies) {
+            System.out.println(movie.getTitle());
+        }
         System.out.println("Введите название фильма для которого нужно добавить актеров");
         movieTitle = scanner.nextLine();
         for (Movie movie : movies) {
@@ -305,8 +309,14 @@ public class Methods {
                 System.out.println("Введите имя и фамилию актера которого нужно добавить к фильму");
                 actorFullName = scanner.nextLine();
                 int index = actorFullName.indexOf(" ");
-                actorFirstName = actorFullName.substring(0, index);
-                actorLastName = actorFullName.substring(index + 1);
+                try {
+                    actorFirstName = actorFullName.substring(0, index);
+                    actorLastName = actorFullName.substring(index + 1);
+                } catch (Exception e){
+                    System.out.println("Введите имя и фамилию правильно !!!");
+                    break;
+                }
+
                 for (Actor actor : actors) {
                     if (actor.getFirstName().equals(actorFirstName) && actor.getLastName().equals(actorLastName)) {
                         Movie movie1 = new Movie();
@@ -343,8 +353,13 @@ public class Methods {
                 System.out.println("Введите имя и фамилию режисера которого нужно добавить к фильму");
                 directorFullName = scanner.nextLine();
                 int index = directorFullName.indexOf(" ");
-                directorFirstName = directorFullName.substring(0, index);
-                directorLastName = directorFullName.substring(index + 1);
+                try{
+                    directorFirstName = directorFullName.substring(0, index);
+                    directorLastName = directorFullName.substring(index + 1);
+                } catch (Exception e){
+                    System.out.println("Введите имя и фамилию правильно !!!");
+                    break;
+                }
                 for (Director director : directors) {
                     if (director.getFirstName().equals(directorFirstName) && director.getLastName().equals(directorLastName)) {
                         Movie movie1 = new Movie();
@@ -369,7 +384,10 @@ public class Methods {
     }
 
     public void showAllMovies() {
-        System.out.printf("%20s|%10s|%20s|%s20", "Название фильма", "Жанры", "Рижисер", "Актеры");
+        List<Movie> movies = movieDao.findAll();
+        String genre1 = null;
+        String actor1 = null;
+        System.out.printf("%-30s|%-15s|%-25s|%-20s %n", "Название фильма", "Жанры", "Рижисер", "Актеры");
 
     }
 

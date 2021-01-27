@@ -1,8 +1,10 @@
 package org.example.domain.dao.impl;
 
 import org.example.domain.dao.MovieDao;
+import org.example.domain.entity.Actor;
 import org.example.domain.entity.Genre;
 import org.example.domain.entity.Movie;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,6 +12,7 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -50,18 +53,9 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public List<Movie> findAll() {
-
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        List<Movie> movies = null;
-        try {
-            movies = session.createQuery("from Movie ", Movie.class).list();
-            tx.commit();
-        } catch (Throwable ex) {
-            tx.rollback();
-        } finally {
+            List<Movie> movies = session.createQuery("from Movie ", Movie.class).list();
             session.close();
-        }
         return movies;
     }
 
@@ -70,7 +64,7 @@ public class MovieDaoImpl implements MovieDao {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         try {
-            session.saveOrUpdate(movie);
+            session.update(movie);
             tx.commit();
         } catch (Throwable ex) {
             tx.rollback();
