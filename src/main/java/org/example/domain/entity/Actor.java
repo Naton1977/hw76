@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -41,6 +42,10 @@ public class Actor{
     @JoinTable(name = "movie_actor",
     joinColumns = @JoinColumn(name = "actor_id"),
     inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    private Set<Movie> movieSet;
+    private Set<Movie> movieSet = new HashSet<>();
+
+    public void addMovieSet(Movie movie){
+        movieSet.add(movie);
+    }
 }
 

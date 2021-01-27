@@ -1,6 +1,10 @@
 package org.example;
 
 
+import org.example.domain.entity.Actor;
+import org.example.domain.entity.Genre;
+import org.example.domain.entity.Movie;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -15,5 +19,6 @@ public class App {
 
         AddMoviesDatabase addMoviesDatabase = new AddMoviesDatabase();
         addMoviesDatabase.addDatabase();
+
     }
 }

@@ -4,23 +4,15 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.lang.reflect.Type;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
 @RequiredArgsConstructor
+@NoArgsConstructor
 @Table(name = "Moviess")
 @ToString(exclude = {"actorSet", "genreSet", "director"})
 public class Movie {
-
-
-    public Movie() {
-        actorSet = new HashSet<>();
-        genreSet = new HashSet<>();
-    }
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +44,7 @@ public class Movie {
     @JoinTable(name = "movie_actor",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id"))
-    private Set<Actor> actorSet;
+    private Set<Actor> actorSet = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Director director;
@@ -61,10 +53,14 @@ public class Movie {
     @JoinTable(name = "movie_genre",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Set<Genre> genreSet;
+    private Set<Genre> genreSet = new HashSet<>();
 
     public void addGenreSet(Genre genre) {
         genreSet.add(genre);
+    }
+
+    public Set<Genre> getGenres (){
+        return genreSet;
     }
 
     public void addActorSet(Actor actor) {

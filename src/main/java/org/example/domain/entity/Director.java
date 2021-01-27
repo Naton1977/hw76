@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "Directors")
 @ToString(exclude = "movieList")
-public class Director{
+public class Director {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "director_id")
@@ -38,5 +39,9 @@ public class Director{
     private Date birth;
 
     @OneToMany(mappedBy = "director", fetch = FetchType.EAGER)
-    private List<Movie> movieList;
+    private Set<Movie> movieSet;
+
+    public void addMovieSet(Movie movie) {
+        movieSet.add(movie);
+    }
 }

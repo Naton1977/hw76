@@ -269,6 +269,9 @@ public class Methods {
 
     public void addGenreToMovies() {
         List<Movie> movies = movieDao.findAll();
+        for (Movie movie : movies) {
+            System.out.println(movie.getTitle());
+        }
         List<Genre> genres = genreDao.findAll();
         System.out.println("Введите название фильма для которого нужно добавить жанр");
         movieTitle = scanner.nextLine();
@@ -312,7 +315,7 @@ public class Methods {
                 try {
                     actorFirstName = actorFullName.substring(0, index);
                     actorLastName = actorFullName.substring(index + 1);
-                } catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Введите имя и фамилию правильно !!!");
                     break;
                 }
@@ -353,10 +356,10 @@ public class Methods {
                 System.out.println("Введите имя и фамилию режисера которого нужно добавить к фильму");
                 directorFullName = scanner.nextLine();
                 int index = directorFullName.indexOf(" ");
-                try{
+                try {
                     directorFirstName = directorFullName.substring(0, index);
                     directorLastName = directorFullName.substring(index + 1);
-                } catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Введите имя и фамилию правильно !!!");
                     break;
                 }
@@ -384,10 +387,6 @@ public class Methods {
     }
 
     public void showAllMovies() {
-        List<Movie> movies = movieDao.findAll();
-        String genre1 = null;
-        String actor1 = null;
-        System.out.printf("%-30s|%-15s|%-25s|%-20s %n", "Название фильма", "Жанры", "Рижисер", "Актеры");
 
     }
 
