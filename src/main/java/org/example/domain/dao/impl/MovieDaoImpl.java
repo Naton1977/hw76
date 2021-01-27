@@ -58,12 +58,6 @@ public class MovieDaoImpl implements MovieDao {
             if(director != null){
                 director.getFirstName();
             }
-            Movie movie = movies.get(i);
-            session.replicate(movie, ReplicationMode.IGNORE);
-            Set<Genre> genres = movie.getGenres();
-            for (Genre genre: genres) {
-                System.out.println(genre);
-            }
         }
         session.close();
         return movies;
