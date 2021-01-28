@@ -14,7 +14,6 @@ public class Actor{
 
     }
 
-
     public Actor(String firstName, String lastName, String nationality, Date birth) {
         this.firstName = firstName;
         this.lastName = lastName;

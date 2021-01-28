@@ -2,7 +2,6 @@ package org.example.domain.dao.impl;
 
 import org.example.domain.dao.ActorDao;
 import org.example.domain.entity.Actor;
-import org.example.domain.entity.Director;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

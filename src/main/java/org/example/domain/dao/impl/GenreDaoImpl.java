@@ -1,7 +1,6 @@
 package org.example.domain.dao.impl;
 
 import org.example.domain.dao.GenreDao;
-import org.example.domain.entity.Actor;
 import org.example.domain.entity.Genre;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
