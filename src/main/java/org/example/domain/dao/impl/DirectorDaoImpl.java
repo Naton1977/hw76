@@ -55,16 +55,8 @@ public class DirectorDaoImpl implements DirectorDao {
     @Override
     public List<Director> findAll() {
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        List<Director> directors = null;
-        try {
-            directors = session.createQuery("from Director ", Director.class).list();
-            tx.commit();
-        } catch (Throwable ex) {
-            tx.rollback();
-        } finally {
-            session.close();
-        }
+        List<Director> directors = session.createQuery("from Director ", Director.class).list();
+        session.close();
         return directors;
     }
 

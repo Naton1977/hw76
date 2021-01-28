@@ -1,42 +1,44 @@
 package org.example.domain.entity;
 
-import lombok.*;
+
 
 import javax.persistence.*;
-import java.lang.reflect.Type;
 import java.util.*;
 
 @Entity
-@Data
-@RequiredArgsConstructor
-@NoArgsConstructor
 @Table(name = "Moviess")
-@ToString(exclude = {"actorSet", "genreSet", "director"})
 public class Movie {
+
+    public Movie(){
+
+    }
+
+    public Movie(String title, Date releasYear, float rating, String plot, Date movieLength) {
+        this.title = title;
+        this.releasYear = releasYear;
+        this.rating = rating;
+        this.plot = plot;
+        this.movieLength = movieLength;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "movie_id")
     private int movieId;
 
-    @NonNull
     @Column(name = "title")
     private String title;
 
     @Column(name = "releas_year")
-    @NonNull
     private Date releasYear;
 
     @Column(name = "rating", columnDefinition = "float")
-    @NonNull
     private float rating;
 
     @Column(name = "plot", columnDefinition = "text")
-    @NonNull
     private String plot;
 
     @Column(name = "movie_length")
-    @NonNull
     @Temporal(TemporalType.TIME)
     private Date movieLength;
 
@@ -59,9 +61,6 @@ public class Movie {
         genreSet.add(genre);
     }
 
-    public Set<Genre> getGenres (){
-        return genreSet;
-    }
 
     public void addActorSet(Actor actor) {
         actorSet.add(actor);
@@ -71,4 +70,91 @@ public class Movie {
         this.director = director;
     }
 
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Date getReleasYear() {
+        return releasYear;
+    }
+
+    public void setReleasYear(Date releasYear) {
+        this.releasYear = releasYear;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
+
+    public Date getMovieLength() {
+        return movieLength;
+    }
+
+    public void setMovieLength(Date movieLength) {
+        this.movieLength = movieLength;
+    }
+
+    public Set<Actor> getActorSet() {
+        return actorSet;
+    }
+
+    public void setActorSet(Set<Actor> actorSet) {
+        this.actorSet = actorSet;
+    }
+
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
+        this.director = director;
+    }
+
+    public Set<Genre> getGenreSet() {
+        return genreSet;
+    }
+
+    public void setGenreSet(Set<Genre> genreSet) {
+        this.genreSet = genreSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "movieId=" + movieId +
+                ", title='" + title + '\'' +
+                ", releasYear=" + releasYear +
+                ", rating=" + rating +
+                ", plot='" + plot + '\'' +
+                ", movieLength=" + movieLength +
+                ", actorSet=" + actorSet +
+                ", director=" + director +
+                ", genreSet=" + genreSet +
+                '}';
+    }
 }

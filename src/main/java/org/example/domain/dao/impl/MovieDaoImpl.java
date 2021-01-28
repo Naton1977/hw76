@@ -54,8 +54,17 @@ public class MovieDaoImpl implements MovieDao {
         Session session = sessionFactory.openSession();
         List<Movie> movies = session.createQuery("from Movie ", Movie.class).list();
         for (int i = 0; i < movies.size(); i++) {
+            Set<Genre> genres = movies.get(i).getGenreSet();
+            for (Genre genre: genres) {
+                genre.getGenreName();
+            }
+            Set<Actor> actors = movies.get(i).getActorSet();
+            for (Actor actor: actors) {
+                actor.getLastName();
+                actor.getFirstName();
+            }
             Director director = movies.get(i).getDirector();
-            if(director != null){
+            if (director != null) {
                 director.getFirstName();
             }
         }

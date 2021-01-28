@@ -55,16 +55,8 @@ public class ActorDaoImpl implements ActorDao {
     @Override
     public List<Actor> findAll() {
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        List<Actor> actors = null;
-        try {
-            actors = session.createQuery("from Actor ", Actor.class).list();
-            tx.commit();
-        } catch (Throwable ex) {
-            tx.rollback();
-        } finally {
-            session.close();
-        }
+        List<Actor> actors = session.createQuery("from Actor ", Actor.class).list();
+        session.close();
         return actors;
     }
 

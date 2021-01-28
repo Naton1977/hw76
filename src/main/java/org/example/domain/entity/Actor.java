@@ -1,6 +1,5 @@
 package org.example.domain.entity;
 
-import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,12 +7,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Table(name = "actors")
-@ToString(exclude = "movieSet")
 public class Actor{
+
+    public Actor(){
+
+    }
+
+
+    public Actor(String firstName, String lastName, String nationality, Date birth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nationality = nationality;
+        this.birth = birth;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,19 +29,15 @@ public class Actor{
 
 
     @Column(name = "first_name")
-    @NonNull
     private String firstName;
 
     @Column(name = "last_name")
-    @NonNull
     private String lastName;
 
     @Column(name = "nationality")
-    @NonNull
     private String nationality;
 
     @Column(name = "birth")
-    @NonNull
     @Temporal(TemporalType.DATE)
     private Date birth;
 
@@ -44,8 +47,57 @@ public class Actor{
     inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private Set<Movie> movieSet = new HashSet<>();
 
-    public void addMovieSet(Movie movie){
-        movieSet.add(movie);
+    public int getActorId() {
+        return actorId;
+    }
+
+    public void setActorId(int actorId) {
+        this.actorId = actorId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Actor{" +
+                "actorId=" + actorId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", birth=" + birth +
+                '}';
     }
 }
 

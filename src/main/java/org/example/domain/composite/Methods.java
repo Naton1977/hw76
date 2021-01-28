@@ -281,18 +281,11 @@ public class Methods {
                 genreName = scanner.nextLine();
                 for (Genre genre : genres) {
                     if (genre.getGenreName().equals(genreName)) {
-                        Movie movie1 = new Movie();
-                        movie1.setTitle(movie.getTitle());
-                        movie1.setMovieLength(movie.getMovieLength());
-                        movie1.setPlot(movie.getPlot());
-                        movie1.setRating(movie.getRating());
-                        movie1.setReleasYear(movie.getReleasYear());
-                        movie1.setMovieId(movie.getMovieId());
                         Genre genre1 = new Genre();
                         genre1.setGenreId(genre.getGenreId());
                         genre1.setGenreName(genre.getGenreName());
-                        movie1.addGenreSet(genre1);
-                        movieDao.update(movie1);
+                        movie.addGenreSet(genre1);
+                        movieDao.update(movie);
                     }
                 }
             }
@@ -322,21 +315,14 @@ public class Methods {
 
                 for (Actor actor : actors) {
                     if (actor.getFirstName().equals(actorFirstName) && actor.getLastName().equals(actorLastName)) {
-                        Movie movie1 = new Movie();
-                        movie1.setTitle(movie.getTitle());
-                        movie1.setMovieLength(movie.getMovieLength());
-                        movie1.setPlot(movie.getPlot());
-                        movie1.setRating(movie.getRating());
-                        movie1.setReleasYear(movie.getReleasYear());
-                        movie1.setMovieId(movie.getMovieId());
                         Actor actor1 = new Actor();
                         actor1.setActorId(actor.getActorId());
                         actor1.setNationality(actor.getNationality());
                         actor1.setBirth(actor.getBirth());
                         actor1.setLastName(actor.getLastName());
                         actor1.setFirstName(actor.getFirstName());
-                        movie1.addActorSet(actor1);
-                        movieDao.update(movie1);
+                        movie.addActorSet(actor1);
+                        movieDao.update(movie);
                     }
                 }
             }
@@ -365,21 +351,14 @@ public class Methods {
                 }
                 for (Director director : directors) {
                     if (director.getFirstName().equals(directorFirstName) && director.getLastName().equals(directorLastName)) {
-                        Movie movie1 = new Movie();
-                        movie1.setTitle(movie.getTitle());
-                        movie1.setMovieLength(movie.getMovieLength());
-                        movie1.setPlot(movie.getPlot());
-                        movie1.setRating(movie.getRating());
-                        movie1.setReleasYear(movie.getReleasYear());
-                        movie1.setMovieId(movie.getMovieId());
                         Director director1 = new Director();
                         director1.setDirectorId(director.getDirectorId());
                         director1.setNationality(director.getNationality());
                         director1.setBirth(director.getBirth());
                         director1.setLastName(director.getLastName());
                         director1.setFirstName(director.getFirstName());
-                        movie1.addDirector(director1);
-                        movieDao.update(movie1);
+                        movie.addDirector(director1);
+                        movieDao.update(movie);
                     }
                 }
             }
@@ -387,6 +366,23 @@ public class Methods {
     }
 
     public void showAllMovies() {
+        List<Movie> movies = movieDao.findAll();
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.printf("Название фильма : %18s%n", movies.get(i).getTitle());
+            System.out.printf("Режисер : %15s%n", movies.get(i).getDirector().getFirstName() + " " + movies.get(i).getDirector().getLastName());
+            Set<Genre> genres = movies.get(i).getGenreSet();
+            System.out.print("Жанры : ");
+            for (Genre genre : genres) {
+                System.out.printf(" %5s ", genre.getGenreName());
+            }
+            System.out.println("");
+            Set<Actor> actors = movies.get(i).getActorSet();
+            System.out.print("Актеры : ");
+            for (Actor actor: actors) {
+                System.out.printf(" %5s ", actor.getFirstName() + " " + actor.getLastName());
+            }
+            System.out.println("");
+        }
 
     }
 

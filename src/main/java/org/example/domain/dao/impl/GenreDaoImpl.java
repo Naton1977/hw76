@@ -55,16 +55,7 @@ public class GenreDaoImpl implements GenreDao {
     @Override
     public List<Genre> findAll() {
         Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        List<Genre> genres = null;
-        try {
-            genres = session.createQuery("from Genre ", Genre.class).list();
-            tx.commit();
-        } catch (Throwable ex) {
-            tx.rollback();
-        } finally {
-            session.close();
-        }
+        List<Genre> genres = session.createQuery("from Genre ", Genre.class).list();
         return genres;
     }
 

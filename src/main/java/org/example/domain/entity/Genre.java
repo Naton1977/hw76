@@ -1,20 +1,22 @@
 package org.example.domain.entity;
 
-import lombok.*;
+
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Data
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Table(name = "Genres")
-@ToString(exclude = "movieSet")
 public class Genre {
+
+    public Genre(){
+
+    }
+
+    public Genre(String genreName) {
+        this.genreName = genreName;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,6 @@ public class Genre {
     private int genreId;
 
 
-    @NonNull
     @Column(name = "genre_name")
     private String genreName;
 
@@ -32,7 +33,29 @@ public class Genre {
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private Set<Movie> movieSet = new HashSet<>();
 
-    public void addMovieSet(Movie movie) {
-        movieSet.add(movie);
+
+    public int getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
+    }
+
+    public String getGenreName() {
+        return genreName;
+    }
+
+    public void setGenreName(String genreName) {
+        this.genreName = genreName;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "genreId=" + genreId +
+                ", genreName='" + genreName + '\'' +
+                '}';
     }
 }
